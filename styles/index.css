@@ -85,3 +85,18 @@ article p {
 
     max-width: 700px;
 }
+
+#contacto {
+    background-color: transparent;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: solid 3px #00cc7b;
+    color: #00cc7b;
+
+    margin: 2rem;
+}
+
+#contacto:hover {
+    background-color: #00cc7b;
+    color: white;
+}
