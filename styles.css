@@ -14,16 +14,18 @@ div {
     margin: 20px;
 }
 
-button {
+a {
     background-color: #FFD700;
     border: 2px solid #FFD700;
     border-radius: 5px;
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
+    text-decoration: none;
+    color: #fff;
 }
 
-button:hover {
+a:hover {
     background-color: #ffe760;
     border: 2px solid #ffae00;
 }
