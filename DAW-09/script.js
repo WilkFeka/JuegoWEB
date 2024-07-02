@@ -1,5 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("subscription-form");
+    const modal = document.getElementById("modal");
+    const modalMessage = document.getElementById("modal-message");
+    const closeButton = document.querySelector(".close-button");
+
     const fields = {
         name: document.getElementById("name"),
         email: document.getElementById("email"),
@@ -88,6 +92,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    closeButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         let hasError = false;
@@ -101,9 +115,49 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         if (hasError) {
-            alert("Hay errores en el formulario. Por favor, corríjalos y vuelva a intentarlo.");
+            showModal("Hay errores en el formulario. Por favor, corríjalos y vuelva a intentarlo.");
         } else {
-            alert(`Formulario enviado con éxito:\n${JSON.stringify(formData, null, 2)}`);
+            sendData(formData);
         }
     });
+
+    function showModal(message) {
+        modalMessage.textContent = message;
+        modal.style.display = "block";
+    }
+
+    function handleSuccess(response, formData) {
+        localStorage.setItem("formData", JSON.stringify(response));
+        showModal(`Suscripción exitosa: ${JSON.stringify(formData, null, 2)}`);
+    }
+
+    function handleError(error) {
+        showModal(`Error: ${error.message}`);
+    }
+
+    function sendData(data) {
+        const queryParams = new URLSearchParams(data).toString();
+        const url = `https://jsonplaceholder.typicode.com/users?${queryParams}`;
+
+        fetch(url, {
+            method: "POST"
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result) {
+                    handleSuccess(result, data);
+                } else {
+                    handleError(new Error("La suscripción falló. Por favor, intente nuevamente."));
+                }
+            })
+            .catch(handleError);
+    }
+
+    const savedData = localStorage.getItem("formData");
+    if (savedData) {
+        const parsedData = JSON.parse(savedData);
+        Object.keys(fields).forEach(key => {
+            fields[key].value = parsedData[key] || "";
+        });
+    }
 });
