@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick y Morty Personajes</title>
+    <link rel="stylesheet" href="../normalize.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Rick_and_Morty_title_card.png/250px-Rick_and_Morty_title_card.png" alt="Rick and Morty" class="logo">
+        <h1>Rick & Morty</h1>
+        <h2>I'm a pickle, Morty!!!!</h2>
+    </header>
+    <main>
+        <section class="introduction">
+            <p>Personajes de la serie Rick y Morty</p>
+            <button id="traerTodos">Todos los Personajes</button>
+        </section>
+        <section class="filter">
+            <h2>Filtrar Personajes</h2>
+            <form id="filterForm">
+                <input type="text" id="name" placeholder="Nombre">
+                <input type="text" id="status" placeholder="Estado (alive, dead, unknown)">
+                <input type="text" id="species" placeholder="Especie">
+                <input type="text" id="type" placeholder="Tipo">
+                <input type="text" id="gender" placeholder="Genero (female, male, genderless, unknown)">
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+        <section id="characterContainer"></section>
+    </main>
+    <script src="./script.js"></script>
+</body>
+</html>
